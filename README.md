@@ -10,7 +10,7 @@
 ##Guidelines:
 * Should look "nice".  Doesn't need to be a design masterpiece, but should be pleasant to look at.  
 * Server side language is open (if it is required)
-*Feel free to edit the data, as long as it doesn't become removed from the equipment works register idea.
+* Feel free to edit the data, as long as it doesn't become removed from the equipment works register idea.
 * A single page style client side javascript app is recommended
 * Any questions, raise an issue here
 
