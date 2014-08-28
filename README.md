@@ -1,5 +1,9 @@
 #Build a website that displays the data below in a meaningful and interactive way.
 
+##Domain
+* Equipment is a list of equipment that the company owns.
+* MaintenanceWorks is a list of maintenance records for each of the the pieces of equipment in the equipment table.  Maintenance on equipment is done on a ad-hoc basis, and the date and time and description of the works at included.
+
 ##Requirements
 * A user must be able to add / remove / update data
 * The final web application must be available on the internet publically
