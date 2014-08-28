@@ -2,7 +2,7 @@
 
 ##Domain
 * Equipment is a list of equipment that the company owns.
-* MaintenanceWorks is a list of maintenance records for each of the the pieces of equipment in the equipment table.  Maintenance on equipment is done on a ad-hoc basis, and the date and time and description of the works at included.
+* MaintenanceWorks is a list of maintenance records for each of the the pieces of equipment in the equipment table.  Maintenance on equipment is done on a ad-hoc basis, and the date and time and description of the works at included.  Also included is a time taken for the maintenance to be completed (in minutes).
 
 ##Requirements
 * A user must be able to add / remove / update data
