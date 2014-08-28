@@ -8,6 +8,7 @@
 * A user must be able to add / remove / update data
 * The final web application must be available on the internet publically
 * The current project code MUST be cloned (be aware that forking could let every other visitor here see your progress) 
+* There must be evidence of automated (unit or integration) testing techniques used.
 * Commit history must be intact.  No one commit repositories please (we want to see how it develops over time)
 * Use the data supplied in this repository.  
 
@@ -21,6 +22,7 @@
 
 ##Bonus
 * Responsive on small / medium and large screen size (responsive design)
+* Using test first (TDD) to guide the development 
 
 ##Other things of note
 * If you are worried about remaining anonymous, create a dummy github or bitbucket account.
