@@ -18,6 +18,7 @@
 * Feel free to edit the data, as long as it doesn't become removed from the equipment works register idea.
 * A single page style client side javascript app is recommended
 * Any questions, raise an issue here
+* Having a go and not meeting all requirements is better than not trying.
 
 
 ##Bonus
