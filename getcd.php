@@ -1,15 +1,43 @@
-<?PHP
+<?php
 
-$file_handle = fopen("Equipment.csv", "r");
+//phpinfo();
 
-while (!feof($file_handle) ) {
+$q=$_GET["q"];
 
-$line_of_text = fgetcsv($file_handle, 1024);
+//$xmlDoc = simplexml_load_file("cd_catalog.xml"); 
 
-print $line_of_text[0] . $line_of_text[1]. $line_of_text[2] . "<BR>";
+$xmlDoc = new DOMDocument();
+$xmlDoc->load("cd_catalog.xml");
 
-}
+$x=$xmlDoc->getElementsByTagName("ARTIST");
 
-fclose($file_handle);
+for ($i=0; $i<=$x->length-1; $i++)
+{
+//Process only element nodes
+if ($x->item($i)->nodeType==1)
+  {
+  if ($x->item($i)->childNodes->item(0)->nodeValue == $q)
+    {
+    $y=($x->item($i)->parentNode);	
+	//echo "one element found '$i'<br />";	
+	$cd=($y->childNodes);
+    }	
+  }  
+} 
 
-?>
+$cd=($y->childNodes);
+
+for ($i=0;$i<$cd->length;$i++)
+{ 
+//Process only element nodes
+if ($cd->item($i)->nodeType==1)
+  {
+  echo("<b>" . $cd->item($i)->nodeName . ":</b> ");
+  echo($cd->item($i)->childNodes->item(0)->nodeValue);
+  echo("<br />");
+  }
+} 
+
+ 
+
+?> 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="main">
+  <ul id="tabs" class='tabs'>
+    <li><a href="#Equipment">Equipment</a></li>
+    <li><a href="#MaintenanceWorks">Maintenance Works</a></li>
+  </ul>
+  <div id="Equipment">
+  </div>
+  <div id="MaintenanceWorks">
+  </div>
+</div>
+<script src="MaintenanceWork.js"></script>
+<script src="Equipment.js"></script>
+<script src="bower_components/jquery/jquery.js"></script>
+<script>
+//load Equipment
+ $(document).ready(function() {
+    console.log("Get Equipment");
+    $.ajax({
+       type: 'GET',
+       url: 'loadCSV.php?url=Equipment.csv',
+       data: null,
+       success: function(text) {        
+           var fields = text.split(/\n/);
+           fields.pop(fields.length-1);     
+           var headers = fields[0].split(','), 
+          html = '<br><div id="EquipmentHeaders"><table>';
+           html += '<tr>';
+           for(var i = 0; i < headers.length; i += 1) {
+              html += '<th class="eq'+ headers[i] +'" scope="col">' + headers[i] + '</th>';   
+           }    
+           html += '<th class="EqDelete">Delete</th>';
+           html += '</tr>'; 
+           html += '</table></div>';
+           html += '<div id="EquipmentFields"><table id="EquipmentFieldsTables"><tbody id="Equipbody">';  
+           var data = fields.slice(1, fields.length);
+           for(var j = 0; j < data.length; j += 1) {
+              var dataFields = data[j].split(',');              
+              html += '<tr  id="Erow' + (j+1) + '">';
+              html += '<td class="eqId" id="eqId' + (j+1) + '"> <a href="JavaScript:selectEquipmentRow(' + (j+1) + ')">' + dataFields[0] +'</a></td>';
+              html += '<td class="eqName" id="eqName' + (j+1) +'">' + dataFields[1] + '</td>';
+               html += '<td class="EqDelete"><button onclick="deleteEquipmentRow('+ (j+1) +')">X</button></td>';
+              html += '</tr>';
+           }          
+           html += '</tbody></table></div>';
+            html += '<div id="EquipmentInput"><table>';
+             html += '<tr>';
+             html += '<td class="eqId"><button  class="eqId" onclick="newEquipmentRow()">New</button><input maxlength="4" size="1" type="text" name="idEquipmentInput" id="idEquipmentInput" disabled></td>';
+             html += '<td class="eqName"><input maxlength="170" size="170" type="text" name="nameEquipmentInput"  id="nameEquipmentInput"></td>';
+             html += '<td class="eqDelete"><button onclick="updateEquipmentRow()">Update</button></td>';
+             html += '</tr>';
+             html += '</table></div>';          
+           $(html).appendTo('#Equipment');
+       }     
+    });
+});
+
+  $(document).ready(function() {
+      console.log("Get MaintenanceWorks");
+      $.ajax({
+         type: 'GET',
+         url: 'loadCSV.php?url=MaintenanceWorks.csv',
+         data: null,
+         success: function(text) {        
+             var fields = text.split(/\n/);
+             fields.pop(fields.length-1);     
+             var headers = fields[0].split(','), 
+                 html = '<br><div id="MaintenanceWorksHeaders"><table>';
+             html += '<tr>';
+             for(var i = 0; i < headers.length; i += 1) {
+                html += '<th class="'+ headers[i] +'" scope="col" >' + headers[i] + '</th>';   
+             }    
+              html += '<th class="Delete">Delete</th>';
+             html += '</tr>';
+             html += '</table></div>';
+             html += '<div id="MaintenanceWorksFields"><table id="MaintenanceWorksFieldsTables"><tbody id="Maintbody">';
+             var data = fields.slice(1, fields.length);
+             for(var j = 0; j < data.length; j += 1) {
+                var dataFields = data[j].split(',');              
+                html += '<tr id="Mrow' + (j+1) + '">';
+                html += '<td class="Id" id="Id' + (j+1) + '"> <a href="JavaScript:selectMaintenanceWorksRow(' + (j+1) + ')">' + dataFields[0] +'</a></td>';
+                html += '<td class="Date"id="Date' + (j+1) + '">' + dataFields[1] + '</td>';
+                html += '<td class="Time" id="Time' +  (j+1) + '">' + dataFields[2] + '</td>';
+                html += '<td class="WorksDescription" id="WorksDescription' +  (j+1) + '">' + dataFields[3] + '</td>';
+                html += '<td class="EquipmentId" id="EquipmentId' +  (j+1) + '">' + dataFields[4] + '</td>';
+                html += '<td class="TimeTaken" id="TimeTaken' +  (j+1) + '">' + dataFields[5] + '</td>';
+                html += '<td class="Delete"><button onclick="deleteMaintRow('+ (j+1) +')">X</button></td>';
+                html += '</tr>';
+             }             
+             html += '</tbody></table></div>';
+             html += '<div id="MaintenanceWorksInput"><table>';
+             html += '<tr>';
+             html += '<td class="Id"><button onclick="newMaintenanceRow()">New</button><input maxlength="4" size="1" type="text" name="idMaintInput" id="idMaintInput" disabled></td>';
+             html += '<td class="Date"><input maxlength="10" size="7" type="text" name="dateMaintInput"  id="dateMaintInput"></td>';
+             html += '<td class="Time"><input maxlength="5" size="2" type="text" name="timeMaintInput" id="timeMaintInput"></td>';
+             html += '<td class="WorksDescription"><input maxlength="140" size="140" type="text" name="worksDescriptionMaintInput" id="worksDescriptionMaintInput"></td>';
+             html += '<td class="EquipmentId"><input maxlength="3" size="3" type="text" name="equipmentIdMaintInput" id="equipmentIdMaintInput"></td>';
+             html += '<td class="TimeTaken"><input maxlength="4" size="4" type="text" name="timeTakenMaintInput" id="timeTakenMaintInput"></td>';
+             html += '<td class="Delete"><button onclick="updateMaintenanceRow()">Update</button></td>';
+             html += '</tr>';
+             html += '</table></div>';
+             $(html).appendTo('#MaintenanceWorks');
+         }     
+      });
+  });
+//code for tabs
+$('ul.tabs').each(function(){
+    var $active, $content, $links = $(this).find('a');
+    $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+    $active.addClass('active');
+    $content = $($active[0].hash);
+    $links.not($active).each(function () {
+    $(this.hash).hide();
+    });
+    $(this).on('click', 'a', function(e){
+      $active.removeClass('active');
+      $content.hide();
+      $active = $(this);
+      $content = $(this.hash);
+      $active.addClass('active');
+      $content.show();
+      e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
